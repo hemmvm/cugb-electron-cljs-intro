@@ -1,0 +1,208 @@
+* Technologien
+** Electron
+*** History
+| You may remember me from such nature films as [...]
+  ~ Troy McClure (The Simpsons)
+
+- formerly known as
+  - Node-Webkit (~2012)
+  - NW.js       (~2014)
+  - Atom-Shell  (~2014)
+*** Overview
+- Cross-Platform Desktop Apps
+- mittels Webtechnologien?!
+- APIs fuer viele "native" Funktionalitaeten
+*** In the wild
+- [[https://atom.io/][Github's atom]]
+- [[http://lighttable.com/][lighttable]]
+- [[https://blog.whatsapp.com/10000621/Introducing-WhatsApps-desktop-app][WhatsApp]]
+- [[https://slack.com/][slack]]
+- [[https://apps.wordpress.com/desktop/][WordPress]]
+- [[https://code.visualstudio.com][Visual Studio Code]]
+- and [[https://github.com/nwjs/nw.js/wiki/List-of-apps-and-companies-using-nw.js][many]], [[https://github.com/sindresorhus/awesome-electron#open-source][many]], [[https://github.com/sindresorhus/awesome-electron#closed-source][many]] [[http://electron.atom.io/apps/][more]]
+*** Komponenten
+- [[https://github.com/cybertk/libchromium][libchromium]] bzw. [[https://github.com/electron/libchromiumcontent][libchromiumcontent]]
+- [[https://nodejs.org/en/][Node.js]]
+** React.js
+- Facebook's Frontend Technologie
+- Ermoeglicht / ermutigt funktionalere UI-Paradigmen
+- [[http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/5.png][Save the trees]]
+- [[http://i.imgur.com/y2r2eh7.png][Virtual DOM]]
+** ClojureScript
+| Clojure rocks, JavaScript reaches
+  ~ Rich Hickey
+
+- JS target (via Google Closure)
+- [[https://github.com/clojure/clojurescript/wiki/Differences-from-Clojure][Differences from Clojure]]
+- [[http://clojure.org/reference/reader#_reader_conditionals][cljc Reader Conditionals]]
+** Figwheel
+- Asset auto{compilation, injection} via websocket
+** Sass
+- CSS preprocessor
+  - Significant whitespace
+  - Variablen, Arithmetik
+  - Mixins
+- vgl. [[http://lesscss.org/][Less.js]], [[http://stylus-lang.com/][Stylus]] etc.
+** JS Tooling
+- [[https://www.npmjs.com/][npm]]
+- [[http://gruntjs.com/][grunt]]
+* Bootcamp
+** BEM
+*** Motivation
+- Modularitaet <-> Kontextuelle Sensitivitaet
+  - Loose coupling / high cohesion
+  - [[https://www.phase2technology.com/blog/used-and-abused-css-inheritance-and-our-misuse-of-the-cascade/][yuck!]]
+*** Prinzip
+- Block, Element, Modifier
+- "Objektorientiertes" CSS: obj.method(args)
+- [[https://en.bem.info/methodology/key-concepts/][bem.info]]
+*** Syntax
+
+Block__Element--Modifier
+
+#+begin_src html
+
+<ul class="nav nav--stacked" onClick="f()">
+  <li class="nav__item">A</li>
+  <li class="nav__item nav__item--active">B</li>
+  <li class="nav__item">C</li>
+</ul>
+
+#+end_src
+#+begin_src css
+
+.nav { ... }
+.nav--stacked { ... }
+.nav__item { ... }
+.nav__item--active { ... }
+
+#+end_src
+** Clojure
+*** Hiccup
+#+begin_src clojure
+
+[:ul.nav.nav--stacked {:on-click f}
+ [:li.nav__item "A"]
+ [:li.nav__item.nav__item--active "B"]
+ [:li.nav__item "C"]
+
+#+end_src
+*** cond->
+#+begin_src clojure
+
+(cond-> m
+  (:zicke m)
+  (assoc :zacke :huehnerkacke)
+
+  (:klettergeruest m)
+  (assoc :eine-nackte-frau :gekuesst))
+
+#+end_src
+*** Prismatic fnk
+#+begin_src clojure
+
+(def kevin
+  {:city "Bonn"
+   :age 24
+   :name {:fname "Kevin"}})
+
+(defnk basic
+  [city [:name fname]]
+  ,,,)
+
+(defnk as
+  [city [:name fname] :as person]
+  ,,,)
+
+(defnk defaults
+  [city {age 42} [:name [fname {lname "Doe"}]]]
+  ,,,)
+
+#+end_src
+*** Host Interop
+- Methods
+| obj.method(a, b)        | Klass.method(a, b) |
+| (.method obj arg1 arg2) | (Klass/method a b) |
+
+- Props
+| obj.x     | Klass.x   |
+| (.-x obj) | (Klass/x) |
+
+- JS Globals
+  - js/console, js/document, js/window etc
+** CommonJS
+#+begin_src javascript
+
+// ==================================
+// foo.js
+module.exports = {
+  x: "Hello Foo",
+  f: function (a, b) { return a + b }
+}
+
+// ==================================
+// bar.js
+module.exports = function (a) {
+  return {
+    x: "Hello Bar",
+    f: function (b) { return a + b }
+  }
+}
+
+// ==================================
+// client.js
+var foo = require("foo")
+  , bar = require("bar")(39)
+
+foo.x
+foo.f(39, 3)
+
+bar.x
+bar.f(3)
+
+#+end_src
+** Anatomy of a Cljs+Electron App
+#+begin_src
+
+|-- app
+|   |-- package.json
+|   |-- index.html
+|   |-- app.js
+|   |-- {js, css, fonts, img}
+|       `-- ...
+|
+|-- env
+|   |-- dev
+|   |   `-- cljs
+|   |       `-- ...
+|   |           `-- dev.cljs
+|   `-- prod
+|       `-- cljs
+|           `-- ...
+|               `-- prod.cljs
+|-- externs
+|   `-- ...
+|
+|-- scripts
+|   `-- setup.sh
+|
+|-- package.json
+|
+|-- Gruntfile.js
+|
+|-- project.clj
+|
+|-- dev
+|   `-- user.clj
+|
+`-- src
+    |-- {clj, cljs, sass}
+        `-- ...
+           `-- ...
+
+#+end_src
+* Hands-on
+** Ziele
+- Tech-Konglomerat in Action
+- Anregung zur selektiven Vertiefung
+- (fn [])
