@@ -1,0 +1,153 @@
+@import "fonts"
+@import "mixins"
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// Vars
+
+$font__size: 16px
+$font__size--large: $font__size + 4px
+
+$color__text: rgba(black,0.70)
+$color__text--light: rgba(black,0.40)
+$color__text--editor: rgba(black,0.55)
+$color__purple: rgb(63, 81, 181)
+
+$app__side-pane-width: 280px
+$app__main-pane-width: calc(100% - #{$app__side-pane-width})
+$app__pane-padding: 10px
+
+$node__spacing--horizontal: 24px
+$node__spacing--vertical: 8px
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// Body
+
+body
+  font-family: 'Roboto'
+  margin: 0
+  overflow: hidden
+
+  color: rgba($color__purple, 0.85)
+  font-size: $font__size--large
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// App
+
+.app
+  +element("side-pane", "main-pane")
+    +inline-block
+    +border-box
+
+    vertical-align: top
+    height: 100vh
+
+  +element("side-pane")
+    width: $app__side-pane-width
+    background: rgba(black, 0.07)
+
+    position: relative
+    padding: $app__pane-padding
+    box-shadow: 0px 0px 12px rgba(black, 0.5)
+    border-right: 1px solid rgba(black, 0.12)
+
+
+
+  +element("main-pane")
+    width: $app__main-pane-width
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// Hint
+
+.hint
+  +user-select-none
+
+  text-align: center
+  margin-top: 25%
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// Editor
+
+.editor
+  height: 100%
+
+  textarea
+    +scrollbar
+    +border-box
+    +textarea-normalize
+
+    width: 100%
+    height: 100%
+
+    font-family: "Ubuntu Mono"
+    font-size: $font__size
+    color: $color__text--editor
+
+    padding: $app__pane-padding $app__pane-padding + 4px
+
+    &::selection
+      background: rgba(black, 0.09)
+      color: rgba($color__purple, 0.85)
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// Node
+
+.node
+  & > &
+    margin-left: $node__spacing--horizontal
+
+  +element("label")
+    +inline-block
+    +user-select-none
+    +roundness
+
+    cursor: pointer
+    padding: 4px $node__spacing--vertical
+
+    max-width: calc(100% - #{$app__pane-padding})
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+    color: $color__text--light
+
+    &.active-true,
+    &:hover
+      color: rgba($color__purple, 0.75)
+
+    &:hover
+      background: rgba(black, 0.07)
+
+    &.dirty-true
+      &:after
+        content: "\f06a"
+        font-family: fontAwesome
+        margin-left: 4px
+        color: rgba(red, 0.25)
+
+    i.fa
+      +inline-block
+
+      width: $node__spacing--horizontal
+      color: rgba($color__purple, 0.75)
+
+  +modifier("dir")
+    position: relative
+
+    &:after
+      content: ""
+      position: absolute
+      top: 24px
+      bottom: $node__spacing--vertical
+      left: 10px
+      border: 1px solid rgba($color__purple, 0.3)
+      box-shadow: 0px 0px 8px 1px rgba($color__purple, 0.15)
+
+    // HACK
+    & > .node__label
+      pointer-events: none

@@ -1,0 +1,39 @@
+// /////////////////////////////////////////////////////////////////////////////
+// Mixins: BEM
+
+=element($elements...)
+  @each $element in $elements
+    &__#{$element}
+      @content
+
+
+=modifier($modifiers...)
+  @each $modifier in $modifiers
+    &--#{$modifier}
+      @content
+
+
+// /////////////////////////////////////////////////////////////////////////////
+// Mixins: Misc
+
+=user-select-none
+  -webkit-user-select: none
+  user-select: none
+
+=scrollbar
+  /* Make scrollbar always appear
+  overflow-y: scroll !important
+
+=roundness($roundness: 2px)
+  border-radius: $roundness
+
+=inline-block
+  display: inline-block
+
+=border-box
+  box-sizing: border-box
+
+=textarea-normalize
+  resize: none
+  border: 0
+  outline: none
