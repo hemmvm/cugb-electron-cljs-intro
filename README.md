@@ -29,7 +29,7 @@ $ node --version
 # v5.7.0
 ```
 
-Fetch all npm
+Fetch electron and npm dependencies
 
 ```
 $ scripts/setup.sh
