@@ -11,7 +11,7 @@ please feel free to fork and refactor ;-)
 
 You may want to have a look at the [intro notes from the talk](https://github.com/hemmvm/cugb-electron-cljs-intro/blob/master/talk/notes.org)
 
-<img src="https://raw.githubusercontent.com/hemmvm/cugb-electron-cljs-intro/master/talk/screenshot_01.png" width="450px">
+<img src="https://raw.githubusercontent.com/hemmvm/cugb-electron-cljs-intro/master/talk/screenshot_01.png" width="550px">
 
 ## Requirements
 
